@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the "Contact list " test project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Repository;
 
 use App\Entity\Contact;
@@ -12,39 +19,14 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method Contact[]    findAll()
  * @method Contact[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ContactRepository extends ServiceEntityRepository
+final class ContactRepository extends ServiceEntityRepository implements ContactRepositoryInterface
 {
+
+    use BasicRepositoryTrait;
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Contact::class);
     }
 
-    // /**
-    //  * @return Contact[] Returns an array of Contact objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Contact
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
