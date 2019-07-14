@@ -86,7 +86,7 @@ class Contact extends React.Component {
                                         <p>{this.props.phone ? this.props.phone : "No phone"}</p>
                                     </div>
                                     <div className="col-md-4 text-center">
-                                        <div className="btn-group" role="group">
+                                        <div className="btn-group contact-buttons" role="group">
                                             <button type="button" className="btn btn-outline-primary"
                                                     onClick={() => {
                                                         this.setState({edit: true})
