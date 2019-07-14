@@ -39,7 +39,7 @@ class ContactDTOToContactEntityTransformer
     public function transform(Contact $contact = null): Contact
     {
         return ($contact ?? new Contact())
-            ->setPhoto(null === $this->contactDTO->getPhoto() ? $contact->getPhoto() : $this->contactDTO->getPhoto())
+            ->setPhoto(null === $this->contactDTO->getPhoto() && $contact ? $contact->getPhoto() : $this->contactDTO->getPhoto())
             ->setInfo(null === $this->contactDTO->getInfo() ? $contact->getInfo() : $this->contactDTO->getInfo())
             ->setPhone($this->contactDTO->getPhone() ? $this->contactDTO->getPhone() : $contact->getPhone())
             ->setName($this->contactDTO->getName() ? $this->contactDTO->getName() : $contact->getName());

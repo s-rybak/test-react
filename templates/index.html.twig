@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacts app</title>
+    {% block stylesheets %}
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+
+        {{ encore_entry_link_tags('app') }}
+
+    {% endblock %}
+</head>
+<body>
+
+<h2>{% block title %} Contact list {% endblock %}</h2>
+
+<div class="container" id="root"></div>
+
+{{ encore_entry_script_tags('app') }}
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+</body>
+</html>
