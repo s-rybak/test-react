@@ -60,4 +60,12 @@ interface BasicRepositoryInterface
      */
     public function list(int $page, int $perPage = 10, ?RepositoryQueriesDTO $query = null): iterable;
 
+    /**
+     * Get entity by id
+     *
+     * @param int $id
+     * @return mixed
+     */
+    public function getById(int $id);
+
 }

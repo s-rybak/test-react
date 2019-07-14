@@ -5,6 +5,8 @@ namespace App\Controller\Api;
 use App\Api\Response\ResponseBuilder;
 use App\Api\Transformer\ContactResourseTransformer;
 use App\Api\Transformer\EmptyResourseTransformer;
+use App\Entity\Contact;
+use App\Exceptions\ValidatorNotFoundException;
 use App\Service\ContactServiceInterface;
 use App\Transformer\ArrayToContactDTOTransformer;
 use App\Transformer\ContactsCollectionToEntitiesPackDTO;
@@ -55,7 +57,7 @@ class ContactsController extends AbstractFOSRestController
      * @param Request $request
      * @return View
      *
-     * @throws \App\Exceptions\ValidatorNotFoundException
+     * @throws ValidatorNotFoundException
      * @Rest\Get("/getList")
      */
     public function getList(Request $request)
@@ -105,7 +107,7 @@ class ContactsController extends AbstractFOSRestController
      * @param Request $request
      * @return View
      *
-     * @throws \App\Exceptions\ValidatorNotFoundException
+     * @throws ValidatorNotFoundException
      * @Rest\Post("/add")
      */
     public function add(Request $request)
@@ -150,26 +152,77 @@ class ContactsController extends AbstractFOSRestController
     /**
      * Edit contact
      *
+     * @param Contact $contact
+     * @param Request $request
      * @return View
      *
-     * @Rest\Get("/edit")
+     * @throws ValidatorNotFoundException
+     * @Rest\Post("/edit/{contact}")
      */
-    public function edit(Request $request)
+    public function edit(Contact $contact, Request $request)
     {
 
+        $req = $this->validator->get("UpdateContactRequestValidator")->validate(
+            $request->request->all() + $request->files->all()
+        );
+
+        if ($req->isValid()) {
+
+            return $this->view(
+                ResponseBuilder::getInstance(new ContactResourseTransformer())
+                    ->setEntity(
+                        $this->service->update(
+                            $contact,
+                            (new ArrayToContactDTOTransformer($req->getData()))
+                                ->transform()
+                        )
+                    )
+                    ->getResponse()
+                    ->setMessage("Contact updated")
+                    ->setStatus('success'),
+                Response::HTTP_OK);
+
+        }
+
+        return $this->view(
+            ResponseBuilder::getInstance(new EmptyResourseTransformer())
+                ->getResponse()
+                ->setLinks([
+                    'self' => [
+                        'href' => '/api/add',
+                    ],
+                ])
+                ->setMessage("Request is not valid. {$req->getMessage()}")
+                ->setStatus('error'),
+            Response::HTTP_BAD_REQUEST);
 
     }
 
     /**
      * Delete contact
      *
+     * @param Contact $contact
      * @return View
      *
-     * @Rest\Get("/delete")
+     * @Rest\Post("/delete/{contact}")
      */
-    public function delete(Request $request)
+    public function delete(Contact $contact)
     {
 
+        $this->service->remove($contact);
+
+        return $this->view(
+            ResponseBuilder::getInstance(new EmptyResourseTransformer())
+                ->getResponse()
+                ->setLinks([
+                    'all' => [
+                        'rel' => 'All contacts',
+                        'href' => '/api/getList',
+                    ]
+                ])
+                ->setMessage("Contact removed")
+                ->setStatus('success'),
+            Response::HTTP_OK);
 
     }
 

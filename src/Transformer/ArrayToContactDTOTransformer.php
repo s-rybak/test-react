@@ -30,8 +30,8 @@ class ArrayToContactDTOTransformer
     {
 
         return (new ContactDTO())
-            ->setName($this->data['name'])
-            ->setPhone($this->data['phone'])
+            ->setName($this->data['name'] ?? "")
+            ->setPhone($this->data['phone'] ?? "")
             ->setInfo($this->data['info'] ?? null)
             ->setId($this->data['id'] ?? null)
             ->setPhoto(key_exists('photo', $this->data) && is_string($this->data['photo']) ? $this->data['photo'] : null)

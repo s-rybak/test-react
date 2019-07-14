@@ -26,10 +26,11 @@ interface ContactServiceInterface extends BasicEntityServiceInterface
     /**
      * Update entity
      *
-     * @param $entity
+     * @param Contact $contact
+     * @param ContactDTO $data new data
      * @return Contact
      */
-    public function update(ContactDTO $entity): Contact;
+    public function update(Contact $contact, ContactDTO $data): Contact;
 
 
 }

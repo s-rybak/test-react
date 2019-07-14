@@ -7,6 +7,7 @@ use App\Exceptions\ValidatorNotFoundException;
 use App\Validator\AddContactRequestValidatorInterface;
 use App\Validator\BasicValidatorInterface;
 use App\Validator\GetListValidatorInterface;
+use App\Validator\UpdateContactRequestValidatorInterface;
 
 /**
  * Realise validator factory
@@ -26,12 +27,14 @@ class ValidatorFactory implements ValidatorFactoryInterface
 
     public function __construct(
         GetListValidatorInterface $getListValidator,
-        AddContactRequestValidatorInterface $addContactRequestValidator
+        AddContactRequestValidatorInterface $addContactRequestValidator,
+        UpdateContactRequestValidatorInterface $contactRequestValidator
     )
     {
 
         $this->addValidator($getListValidator);
         $this->addValidator($addContactRequestValidator);
+        $this->addValidator($contactRequestValidator);
 
     }
 

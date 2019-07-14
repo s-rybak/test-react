@@ -94,4 +94,17 @@ trait BasicRepositoryTrait
             ->execute();
     }
 
+    /**
+     * Get entity by id
+     *
+     * @param int $id
+     * @return mixed
+     */
+    public function getById(int $id)
+    {
+
+        return $this->find($id);
+
+    }
+
 }

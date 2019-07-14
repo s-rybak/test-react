@@ -49,19 +49,19 @@ class ContactResourseTransformer implements ResourceTransformerInterface
     {
         return [
             'all' => [
-                'rel' => 'all contacts',
+                'rel' => 'All contacts',
                 'href' => '/api/getList',
             ],
             'add' => [
-                'rel' => 'add new contact',
+                'rel' => 'Add new contact',
                 'href' => "/api/add/",
             ],
             'edit' => [
-                'rel' => 'edit contact',
+                'rel' => 'Edit contact',
                 'href' => "/api/edit/{$entity->getId()}",
             ],
             'delete' => [
-                'rel' => 'delete contact',
+                'rel' => 'Delete contact',
                 'href' => "/api/delete/{$entity->getId()}",
             ]
         ];

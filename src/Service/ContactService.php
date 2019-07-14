@@ -4,6 +4,7 @@
 namespace App\Service;
 
 use App\Entity\Contact;
+use App\Exceptions\EntityNotFoundException;
 use App\Repository\BasicRepositoryInterface;
 use App\Repository\BasicRepositoryTrait;
 use App\Repository\ContactRepositoryInterface;
@@ -59,12 +60,20 @@ class ContactService implements ContactServiceInterface
     /**
      * Update entity
      *
-     * @param $entity
+     * @param Contact $contact
+     * @param ContactDTO $data
      * @return Contact
      */
-    public function update(ContactDTO $entity): Contact
+    public function update(Contact $contact, ContactDTO $data): Contact
     {
-        // TODO: Implement update() method.
+
+        return $this->repository->save(
+            (new ContactDTOToContactEntityTransformer(
+                $this->filesService->uploadContactPhotoIfItSet($data)
+            ))
+                ->transform($contact)
+        );
+
     }
 
 
