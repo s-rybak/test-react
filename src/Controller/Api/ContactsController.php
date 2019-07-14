@@ -101,12 +101,37 @@ class ContactsController extends AbstractFOSRestController
     /**
      * Add new contact
      *
+     * @param Request $request
      * @return View
      *
-     * @Rest\Get("/add")
+     * @throws \App\Exceptions\ValidatorNotFoundException
+     * @Rest\Post("/add")
      */
     public function add(Request $request)
     {
+
+        $req = $this->validator->get("AddContactRequestValidator")->validate(
+            $request->request->all() + $request->files->all()
+        );
+
+        if ($req->isValid()) {
+
+            $reqData = $req->getData();
+
+
+        }
+
+        return $this->view(
+            ResponseBuilder::getInstance(new EmptyResourseTransformer())
+                ->getResponse()
+                ->setLinks([
+                    'self' => [
+                        'href' => '/api/add',
+                    ],
+                ])
+                ->setMessage("Request is not valid. {$req->getMessage()}")
+                ->setStatus('error'),
+            Response::HTTP_BAD_REQUEST);
 
 
     }

@@ -4,6 +4,7 @@
 namespace App\Validator\Factory;
 
 use App\Exceptions\ValidatorNotFoundException;
+use App\Validator\AddContactRequestValidatorInterface;
 use App\Validator\BasicValidatorInterface;
 use App\Validator\GetListValidatorInterface;
 
@@ -24,11 +25,13 @@ class ValidatorFactory implements ValidatorFactoryInterface
     private $validators = [];
 
     public function __construct(
-        GetListValidatorInterface $getListValidator
+        GetListValidatorInterface $getListValidator,
+        AddContactRequestValidatorInterface $addContactRequestValidator
     )
     {
 
         $this->addValidator($getListValidator);
+        $this->addValidator($addContactRequestValidator);
 
     }
 
