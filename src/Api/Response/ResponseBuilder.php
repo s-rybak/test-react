@@ -79,10 +79,13 @@ final class ResponseBuilder
             $data['entities'][] = $resource;
         }
 
+        $hasMore = ($entitiesPack->getTotal() - (intval($entitiesPack->getPage()) * intval($entitiesPack->getPerPage()))) > 0;
+
         $this->response->setData($data);
         $this->response->setLinks($this->resourceTransformer
             ->getEntitiesLinks(
-                $entitiesPack->getPage(), $entitiesPack->getPerPage()
+                $entitiesPack->getPage(), $entitiesPack->getPerPage(),
+                $hasMore
             )
         );
 

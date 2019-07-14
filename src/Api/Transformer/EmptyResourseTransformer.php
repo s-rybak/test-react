@@ -54,7 +54,7 @@ class EmptyResourseTransformer implements ResourceTransformerInterface
      * @param int $perPage
      * @return iterable
      */
-    public function getEntitiesLinks($page = null, $perPage = 10): iterable
+    public function getEntitiesLinks(int $page = null, int $perPage = 10, bool $next = false): iterable
     {
         return [
             'api_docs' => '/docs/api',

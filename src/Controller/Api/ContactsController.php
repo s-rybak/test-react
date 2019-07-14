@@ -2,7 +2,13 @@
 
 namespace App\Controller\Api;
 
+use App\Api\DTO\EntitiesPackDTO;
+use App\Api\Response\ResponseBuilder;
+use App\Api\Transformer\ContactResourseTransformer;
+use App\Api\Transformer\EmptyResourseTransformer;
 use App\Service\ContactServiceInterface;
+use App\Transformer\ContactsCollectionToEntitiesPackDTO;
+use App\Transformers\ContactDTOToArrayTransformer;
 use App\Validator\ValidatorFactoryInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\View\View;
@@ -60,12 +66,37 @@ class ContactsController extends AbstractFOSRestController
 
         if ($req->isValid()) {
 
-            return $this->view($req->getData(), Response::HTTP_OK, ['Access-Control-Allow-Origin' => "*"]);
+            $reqData = $req->getData();
 
+            return $this->view(
+                ResponseBuilder::getInstance(new ContactResourseTransformer())
+                    ->setEntities(
+                        (new ContactsCollectionToEntitiesPackDTO(
+                            $this->service->list($reqData['page'], $reqData['perpage']),
+                            $reqData['page'], $reqData['perpage']
+                        ))
+                            ->transform()
+                            ->setTotal($this->service->count())
+                    )
+                    ->getResponse()
+                    ->setStatus("success")
+                    ->setMessage("Contact list"),
+
+                Response::HTTP_OK);
 
         }
 
-        return $this->view(['error' => "not valid"], Response::HTTP_OK, ['Access-Control-Allow-Origin' => "*"]);
+        return $this->view(
+            ResponseBuilder::getInstance(new EmptyResourseTransformer())
+                ->getResponse()
+                ->setLinks([
+                    'self' => [
+                        'href' => '/api/getList',
+                    ],
+                ])
+                ->setMessage("Request is not valid. It can contain 'page' and/or 'perpage' number get parameters ")
+                ->setStatus('error'),
+            Response::HTTP_BAD_REQUEST);
 
     }
 

@@ -9,12 +9,13 @@
 
 namespace App\Entity;
 
+use App\Api\Entity\ApiEntityInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContactRepository")
  */
-class Contact
+class Contact implements ApiEntityInterface
 {
     /**
      * @ORM\Id()

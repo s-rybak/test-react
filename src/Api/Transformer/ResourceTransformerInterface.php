@@ -42,9 +42,10 @@ interface ResourceTransformerInterface
     /**
      * Gets entity links.
      *
-     * @param null $page
+     * @param int $page
      * @param int $perPage
+     * @param bool $next
      * @return iterable
      */
-    public function getEntitiesLinks($page = null, $perPage = 10): iterable;
+    public function getEntitiesLinks(int $page = null, int $perPage = 10, bool $next = false): iterable;
 }

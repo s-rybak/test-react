@@ -70,20 +70,29 @@ class ContactResourseTransformer implements ResourceTransformerInterface
     /**
      * Gets entity links.
      *
-     * @param null $page
+     * @param int $page
      * @param int $perPage
+     * @param bool $next
      * @return iterable
      */
-    public function getEntitiesLinks($page = null, $perPage = 10): iterable
+    public function getEntitiesLinks(int $page = null, int $perPage = 10, bool $next = false): iterable
     {
 
-        $page = $page ? $page + 1 : 2;
-
         $links = [
-            'next' => [
+            'self' => [
                 'href' => "/api/getList?page={$page}&perpage={$perPage}",
             ]
         ];
+
+        $page = $page ? $page + 1 : 2;
+
+        if ($next) {
+
+            $links['next'] = [
+                'href' => "/api/getList?page={$page}&perpage={$perPage}",
+            ];
+
+        }
 
         if ($page > 2) {
 
