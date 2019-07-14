@@ -1,9 +1,11 @@
 <?php
 
 
-namespace App\Validator;
+namespace App\Validator\Factory;
 
 use App\Exceptions\ValidatorNotFoundException;
+use App\Validator\BasicValidatorInterface;
+use App\Validator\GetListValidatorInterface;
 
 /**
  * Realise validator factory

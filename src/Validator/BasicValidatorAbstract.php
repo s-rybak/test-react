@@ -85,7 +85,7 @@ abstract class BasicValidatorAbstract implements BasicValidatorInterface
 
             foreach ($violation as $item) {
 
-                $msgs[] = $item->getMessage();
+                $msgs[] = "{$item->getPropertyPath()} - {$item->getMessage()}" ;
 
             }
 

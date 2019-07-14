@@ -1,9 +1,10 @@
 <?php
 
 
-namespace App\Validator;
+namespace App\Validator\Factory;
 
 use App\Exceptions\ValidatorNotFoundException;
+use App\Validator\BasicValidatorInterface;
 
 /**
  * Describe validator factory interface

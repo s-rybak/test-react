@@ -2,14 +2,12 @@
 
 namespace App\Controller\Api;
 
-use App\Api\DTO\EntitiesPackDTO;
 use App\Api\Response\ResponseBuilder;
 use App\Api\Transformer\ContactResourseTransformer;
 use App\Api\Transformer\EmptyResourseTransformer;
 use App\Service\ContactServiceInterface;
 use App\Transformer\ContactsCollectionToEntitiesPackDTO;
-use App\Transformers\ContactDTOToArrayTransformer;
-use App\Validator\ValidatorFactoryInterface;
+use App\Validator\Factory\ValidatorFactoryInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
 use FOS\RestBundle\View\View;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -94,7 +92,7 @@ class ContactsController extends AbstractFOSRestController
                         'href' => '/api/getList',
                     ],
                 ])
-                ->setMessage("Request is not valid. It can contain 'page' and/or 'perpage' number get parameters ")
+                ->setMessage("Request is not valid. {$req->getMessage()}")
                 ->setStatus('error'),
             Response::HTTP_BAD_REQUEST);
 
