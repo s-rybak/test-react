@@ -1,42 +1,49 @@
 <?php
 
+/*
+ * This file is part of the "Contact list " test project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Api\DTO;
 
 use App\Api\Entity\ApiEntityInterface;
 
 /**
- * Realise entities pack response options DTO
+ * Realise entities pack response options DTO.
  *
  * Class EntitiesPackDTO
- * @package App\Api\DTO
  */
 class EntitiesPackDTO
 {
-
     /**
      * @var ApiEntityInterface[]
      */
     private $entities;
     /**
-     * @var integer|null
+     * @var int|null
      */
     private $total;
     /**
-     * @var integer|null
+     * @var int|null
      */
     private $page;
     /**
-     * @var integer|null
+     * @var int|null
      */
     private $perPage;
 
     /**
      * @param ApiEntityInterface[] $entities
+     *
      * @return EntitiesPackDTO
      */
     public function setEntities(iterable $entities): EntitiesPackDTO
     {
         $this->entities = $entities;
+
         return $this;
     }
 
@@ -50,11 +57,13 @@ class EntitiesPackDTO
 
     /**
      * @param int|null $total
+     *
      * @return EntitiesPackDTO
      */
     public function setTotal(?int $total): EntitiesPackDTO
     {
         $this->total = $total;
+
         return $this;
     }
 
@@ -68,11 +77,13 @@ class EntitiesPackDTO
 
     /**
      * @param int|null $page
+     *
      * @return EntitiesPackDTO
      */
     public function setPage(?int $page): EntitiesPackDTO
     {
         $this->page = $page;
+
         return $this;
     }
 
@@ -86,11 +97,13 @@ class EntitiesPackDTO
 
     /**
      * @param int|null $perPage
+     *
      * @return EntitiesPackDTO
      */
     public function setPerPage(?int $perPage): EntitiesPackDTO
     {
         $this->perPage = $perPage;
+
         return $this;
     }
 
@@ -101,5 +114,4 @@ class EntitiesPackDTO
     {
         return $this->perPage;
     }
-
 }

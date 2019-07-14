@@ -1,23 +1,28 @@
 <?php
 
+/*
+ * This file is part of the "Contact list " test project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace App\Repository;
 
 use RepositoryQueriesDTO;
 
 /**
- * Realise basic repository functions
+ * Realise basic repository functions.
  *
  * Trait BasicRepositoryTrait
- * @package App\Repository
  */
 trait BasicRepositoryTrait
 {
-
     /**
-     * Save entity
+     * Save entity.
      *
      * @param $entity
+     *
      * @return mixed
      */
     public function save($entity)
@@ -30,10 +35,9 @@ trait BasicRepositoryTrait
     }
 
     /**
-     * Remove entity
+     * Remove entity.
      *
      * @param $entity
-     * @return void
      */
     public function remove($entity): void
     {
@@ -43,7 +47,8 @@ trait BasicRepositoryTrait
     }
 
     /**
-     * Get entities count
+     * Get entities count.
+     *
      * @return int
      */
     public function length(): int
@@ -55,7 +60,7 @@ trait BasicRepositoryTrait
     }
 
     /**
-     * Get all entities
+     * Get all entities.
      *
      * @return iterable
      */
@@ -65,11 +70,12 @@ trait BasicRepositoryTrait
     }
 
     /**
-     * Get entities slice
+     * Get entities slice.
      *
-     * @param int $page
-     * @param int $perPage
+     * @param int                       $page
+     * @param int                       $perPage
      * @param RepositoryQueriesDTO|null $query
+     *
      * @return iterable
      */
     public function list(int $page, int $perPage = 10, ?RepositoryQueriesDTO $query = null): iterable
@@ -77,14 +83,10 @@ trait BasicRepositoryTrait
         $qb = $this->createQueryBuilder('t');
 
         if (null !== $query) {
-
             foreach ($query->getQueries() as $i => $queryDTO) {
-
                 $qb->where("t.{$queryDTO->getColumn()} {$queryDTO->getExpr()} :{$i}");
                 $qb->setParameter($i, $queryDTO->getValue());
-
             }
-
         }
 
         return $qb
@@ -95,16 +97,14 @@ trait BasicRepositoryTrait
     }
 
     /**
-     * Get entity by id
+     * Get entity by id.
      *
      * @param int $id
+     *
      * @return mixed
      */
     public function getById(int $id)
     {
-
         return $this->find($id);
-
     }
-
 }

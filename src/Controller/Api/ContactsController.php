@@ -1,5 +1,12 @@
 <?php
 
+/*
+ * This file is part of the "Contact list " test project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\Controller\Api;
 
 use App\Api\Response\ResponseBuilder;
@@ -19,7 +26,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class ContactsController extends AbstractFOSRestController
 {
-
     /**
      * @var ContactServiceInterface
      */
@@ -32,8 +38,7 @@ class ContactsController extends AbstractFOSRestController
     public function __construct(
         ContactServiceInterface $contactService,
         ValidatorFactoryInterface $validator
-    )
-    {
+    ) {
         $this->service = $contactService;
         $this->validator = $validator;
     }
@@ -47,14 +52,14 @@ class ContactsController extends AbstractFOSRestController
      */
     public function status(): View
     {
-        return $this->view(["status" => "OK"], Response::HTTP_OK, ['Access-Control-Allow-Origin' => "*"]);
-
+        return $this->view(['status' => 'OK'], Response::HTTP_OK, ['Access-Control-Allow-Origin' => '*']);
     }
 
     /**
-     * Get contact list
+     * Get contact list.
      *
      * @param Request $request
+     *
      * @return View
      *
      * @throws ValidatorNotFoundException
@@ -62,11 +67,9 @@ class ContactsController extends AbstractFOSRestController
      */
     public function getList(Request $request)
     {
-
-        $req = $this->validator->get("GetListValidator")->validate($request->query->all());
+        $req = $this->validator->get('GetListValidator')->validate($request->query->all());
 
         if ($req->isValid()) {
-
             $reqData = $req->getData();
 
             return $this->view(
@@ -80,11 +83,9 @@ class ContactsController extends AbstractFOSRestController
                             ->setTotal($this->service->count())
                     )
                     ->getResponse()
-                    ->setStatus("success")
-                    ->setMessage("Contact list"),
-
+                    ->setStatus('success')
+                    ->setMessage('Contact list'),
                 Response::HTTP_OK);
-
         }
 
         return $this->view(
@@ -98,13 +99,13 @@ class ContactsController extends AbstractFOSRestController
                 ->setMessage("Request is not valid. {$req->getMessage()}")
                 ->setStatus('error'),
             Response::HTTP_BAD_REQUEST);
-
     }
 
     /**
-     * Add new contact
+     * Add new contact.
      *
      * @param Request $request
+     *
      * @return View
      *
      * @throws ValidatorNotFoundException
@@ -112,13 +113,11 @@ class ContactsController extends AbstractFOSRestController
      */
     public function add(Request $request)
     {
-
-        $req = $this->validator->get("AddContactRequestValidator")->validate(
+        $req = $this->validator->get('AddContactRequestValidator')->validate(
             $request->request->all() + $request->files->all()
         );
 
         if ($req->isValid()) {
-
             return $this->view(
                 ResponseBuilder::getInstance(new ContactResourseTransformer())
                     ->setEntity(
@@ -128,10 +127,9 @@ class ContactsController extends AbstractFOSRestController
                         )
                     )
                     ->getResponse()
-                    ->setMessage("Contact created")
+                    ->setMessage('Contact created')
                     ->setStatus('success'),
                 Response::HTTP_OK);
-
         }
 
         return $this->view(
@@ -145,15 +143,14 @@ class ContactsController extends AbstractFOSRestController
                 ->setMessage("Request is not valid. {$req->getMessage()}")
                 ->setStatus('error'),
             Response::HTTP_BAD_REQUEST);
-
-
     }
 
     /**
-     * Edit contact
+     * Edit contact.
      *
      * @param Contact $contact
      * @param Request $request
+     *
      * @return View
      *
      * @throws ValidatorNotFoundException
@@ -161,13 +158,11 @@ class ContactsController extends AbstractFOSRestController
      */
     public function edit(Contact $contact, Request $request)
     {
-
-        $req = $this->validator->get("UpdateContactRequestValidator")->validate(
+        $req = $this->validator->get('UpdateContactRequestValidator')->validate(
             $request->request->all() + $request->files->all()
         );
 
         if ($req->isValid()) {
-
             return $this->view(
                 ResponseBuilder::getInstance(new ContactResourseTransformer())
                     ->setEntity(
@@ -178,10 +173,9 @@ class ContactsController extends AbstractFOSRestController
                         )
                     )
                     ->getResponse()
-                    ->setMessage("Contact updated")
+                    ->setMessage('Contact updated')
                     ->setStatus('success'),
                 Response::HTTP_OK);
-
         }
 
         return $this->view(
@@ -195,20 +189,19 @@ class ContactsController extends AbstractFOSRestController
                 ->setMessage("Request is not valid. {$req->getMessage()}")
                 ->setStatus('error'),
             Response::HTTP_BAD_REQUEST);
-
     }
 
     /**
-     * Delete contact
+     * Delete contact.
      *
      * @param Contact $contact
+     *
      * @return View
      *
      * @Rest\Post("/delete/{contact}")
      */
     public function delete(Contact $contact)
     {
-
         $this->service->remove($contact);
 
         return $this->view(
@@ -218,12 +211,10 @@ class ContactsController extends AbstractFOSRestController
                     'all' => [
                         'rel' => 'All contacts',
                         'href' => '/api/getList',
-                    ]
+                    ],
                 ])
-                ->setMessage("Contact removed")
+                ->setMessage('Contact removed')
                 ->setStatus('success'),
             Response::HTTP_OK);
-
     }
-
 }

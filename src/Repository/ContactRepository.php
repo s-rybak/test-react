@@ -21,12 +21,10 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 final class ContactRepository extends ServiceEntityRepository implements ContactRepositoryInterface
 {
-
     use BasicRepositoryTrait;
 
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Contact::class);
     }
-
 }

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the "Gen RabbitMQ test" project.
+ * This file is part of the "Contact list " test project.
  * (c) Sergey Rybak <srybak007@gmail.com>
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -54,7 +54,7 @@ class ContactResourseTransformer implements ResourceTransformerInterface
             ],
             'add' => [
                 'rel' => 'Add new contact',
-                'href' => "/api/add/",
+                'href' => '/api/add/',
             ],
             'edit' => [
                 'rel' => 'Edit contact',
@@ -63,45 +63,41 @@ class ContactResourseTransformer implements ResourceTransformerInterface
             'delete' => [
                 'rel' => 'Delete contact',
                 'href' => "/api/delete/{$entity->getId()}",
-            ]
+            ],
         ];
     }
 
     /**
      * Gets entity links.
      *
-     * @param int $page
-     * @param int $perPage
+     * @param int  $page
+     * @param int  $perPage
      * @param bool $next
+     *
      * @return iterable
      */
     public function getEntitiesLinks(int $page = null, int $perPage = 10, bool $next = false): iterable
     {
-
         $links = [
             'self' => [
                 'href' => "/api/getList?page={$page}&perpage={$perPage}",
-            ]
+            ],
         ];
 
         $page = $page ? $page + 1 : 2;
 
         if ($next) {
-
             $links['next'] = [
                 'href' => "/api/getList?page={$page}&perpage={$perPage}",
             ];
-
         }
 
         if ($page > 2) {
-
             $page -= 2;
 
             $links['prev'] = [
                 'href' => "/api/getList?page={$page}&perpage={$perPage}",
             ];
-
         }
 
         return $links;

@@ -1,5 +1,11 @@
 <?php
 
+/*
+ * This file is part of the "Contact list " test project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace App\Validator\Factory;
 
@@ -10,16 +16,14 @@ use App\Validator\GetListValidatorInterface;
 use App\Validator\UpdateContactRequestValidatorInterface;
 
 /**
- * Realise validator factory
+ * Realise validator factory.
  *
  * Class ValidatorFactory
- * @package App\Validator
  */
 class ValidatorFactory implements ValidatorFactoryInterface
 {
-
     /**
-     * All validators
+     * All validators.
      *
      * @var array
      */
@@ -29,56 +33,47 @@ class ValidatorFactory implements ValidatorFactoryInterface
         GetListValidatorInterface $getListValidator,
         AddContactRequestValidatorInterface $addContactRequestValidator,
         UpdateContactRequestValidatorInterface $contactRequestValidator
-    )
-    {
-
+    ) {
         $this->addValidator($getListValidator);
         $this->addValidator($addContactRequestValidator);
         $this->addValidator($contactRequestValidator);
-
     }
 
     /**
-     * Get validator
+     * Get validator.
      *
      * @param string $validator
+     *
      * @return mixed
+     *
      * @throws ValidatorNotFoundException
      */
     public function get(string $validator): BasicValidatorInterface
     {
         if (key_exists($validator, $this->validators)) {
-
-
             return $this->validators[$validator];
-
         }
 
         throw new ValidatorNotFoundException("Validator {$validator} not registered");
     }
 
     /**
-     * Get all loaded validators
+     * Get all loaded validators.
      *
      * @return array
      */
     public function registeredValidators(): array
     {
-
         return array_keys($this->validators);
-
     }
 
     /**
-     * Add validator
+     * Add validator.
      *
      * @param BasicValidatorInterface $basicValidator
      */
     private function addValidator(BasicValidatorInterface $basicValidator)
     {
-
         $this->validators[$basicValidator->getName()] = $basicValidator;
-
-
     }
 }

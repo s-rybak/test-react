@@ -1,17 +1,21 @@
 <?php
 
+/*
+ * This file is part of the "Contact list " test project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
 namespace App\DTO;
 
 /**
- * Contains validate process result
+ * Contains validate process result.
  *
  * Class ValidateResultDTO
- * @package App\DTO
  */
 class ValidateResultDTO
 {
-
     /**
      * @var bool
      */
@@ -27,11 +31,13 @@ class ValidateResultDTO
 
     /**
      * @param bool $valid
+     *
      * @return ValidateResultDTO
      */
     public function setValid(bool $valid): ValidateResultDTO
     {
         $this->valid = $valid;
+
         return $this;
     }
 
@@ -45,11 +51,13 @@ class ValidateResultDTO
 
     /**
      * @param string $message
+     *
      * @return ValidateResultDTO
      */
     public function setMessage(string $message): ValidateResultDTO
     {
         $this->message = $message;
+
         return $this;
     }
 
@@ -63,11 +71,13 @@ class ValidateResultDTO
 
     /**
      * @param array $data
+     *
      * @return ValidateResultDTO
      */
     public function setData(array $data): ValidateResultDTO
     {
         $this->data = $data;
+
         return $this;
     }
 
@@ -78,5 +88,4 @@ class ValidateResultDTO
     {
         return $this->data;
     }
-
 }

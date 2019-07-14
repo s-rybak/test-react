@@ -1,29 +1,35 @@
 <?php
 
+/*
+ * This file is part of the "Contact list " test project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\DTO;
 
 /**
- * Custom simple query
+ * Custom simple query.
  *
  * Class RepositoryQueryDTO
  */
 class RepositoryQueryDTO
 {
-
     /**
-     * Query column
+     * Query column.
      *
      * @var string
      */
     private $column;
     /**
-     * Query expression
+     * Query expression.
      *
      * @var string
      */
     private $expr;
     /**
-     * Query value
+     * Query value.
      *
      * @var mixed
      */
@@ -31,11 +37,13 @@ class RepositoryQueryDTO
 
     /**
      * @param string $column
+     *
      * @return RepositoryQueryDTO
      */
     public function setColumn(string $column): RepositoryQueryDTO
     {
         $this->column = $column;
+
         return $this;
     }
 
@@ -49,11 +57,13 @@ class RepositoryQueryDTO
 
     /**
      * @param string $expr
+     *
      * @return RepositoryQueryDTO
      */
     public function setExpr(string $expr): RepositoryQueryDTO
     {
         $this->expr = $expr;
+
         return $this;
     }
 
@@ -67,11 +77,13 @@ class RepositoryQueryDTO
 
     /**
      * @param mixed $value
+     *
      * @return RepositoryQueryDTO
      */
     public function setValue($value)
     {
         $this->value = $value;
+
         return $this;
     }
 
@@ -82,5 +94,4 @@ class RepositoryQueryDTO
     {
         return $this->value;
     }
-
 }

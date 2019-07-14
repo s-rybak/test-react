@@ -16,56 +16,56 @@ use RepositoryQueriesDTO;
  * remove functionality.
  *
  * Interface BasicRepositoryInterface
- * @package App\Repository
  */
 interface BasicRepositoryInterface
 {
-
     /**
-     * Save entity
+     * Save entity.
      *
      * @param $entity
+     *
      * @return mixed
      */
     public function save($entity);
 
     /**
-     * Remove entity
+     * Remove entity.
      *
      * @param $entity
-     * @return void
      */
     public function remove($entity): void;
 
     /**
-     * Get entities count
+     * Get entities count.
+     *
      * @return int
      */
     public function length(): int;
 
     /**
-     * Get all entities
+     * Get all entities.
      *
      * @return iterable
      */
     public function all(): iterable;
 
     /**
-     * Get entities slice
+     * Get entities slice.
      *
-     * @param int $page
-     * @param int $perPage
+     * @param int                       $page
+     * @param int                       $perPage
      * @param RepositoryQueriesDTO|null $query
+     *
      * @return iterable
      */
     public function list(int $page, int $perPage = 10, ?RepositoryQueriesDTO $query = null): iterable;
 
     /**
-     * Get entity by id
+     * Get entity by id.
      *
      * @param int $id
+     *
      * @return mixed
      */
     public function getById(int $id);
-
 }

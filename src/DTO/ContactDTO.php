@@ -1,47 +1,53 @@
 <?php
 
+/*
+ * This file is part of the "Contact list " test project.
+ * (c) Sergey Rybak <srybak007@gmail.com>
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace App\DTO;
 
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\FileBag;
 
 /**
- * Realise contact entity DTO
+ * Realise contact entity DTO.
  *
  * Class ContactDTO
  */
 class ContactDTO
 {
     /**
-     * Contact id
+     * Contact id.
      *
      * @var int|null
      */
     private $id;
 
     /**
-     * Contact name
+     * Contact name.
      *
      * @var string
      */
     private $name;
 
     /**
-     * Contact phone
+     * Contact phone.
      *
      * @var string
      */
     private $phone;
 
     /**
-     * Contact info
+     * Contact info.
      *
      * @var string|null
      */
     private $info;
 
     /**
-     * Contact photo
+     * Contact photo.
      *
      * @var string|null
      */
@@ -54,11 +60,13 @@ class ContactDTO
 
     /**
      * @param int|null $id
+     *
      * @return ContactDTO
      */
     public function setId(?int $id): ContactDTO
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -72,11 +80,13 @@ class ContactDTO
 
     /**
      * @param string $name
+     *
      * @return ContactDTO
      */
     public function setName(string $name): ContactDTO
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -90,11 +100,13 @@ class ContactDTO
 
     /**
      * @param string $phone
+     *
      * @return ContactDTO
      */
     public function setPhone(string $phone): ContactDTO
     {
         $this->phone = $phone;
+
         return $this;
     }
 
@@ -108,11 +120,13 @@ class ContactDTO
 
     /**
      * @param string|null $info
+     *
      * @return ContactDTO
      */
     public function setInfo(?string $info): ContactDTO
     {
         $this->info = $info;
+
         return $this;
     }
 
@@ -126,11 +140,13 @@ class ContactDTO
 
     /**
      * @param string|null $photo
+     *
      * @return ContactDTO
      */
     public function setPhoto(?string $photo): ContactDTO
     {
         $this->photo = $photo;
+
         return $this;
     }
 
@@ -144,11 +160,13 @@ class ContactDTO
 
     /**
      * @param UploadedFile|null $fileToUpload
+     *
      * @return ContactDTO
      */
     public function setFileToUpload(?UploadedFile $fileToUpload): ContactDTO
     {
         $this->fileToUpload = $fileToUpload;
+
         return $this;
     }
 
@@ -159,5 +177,4 @@ class ContactDTO
     {
         return $this->fileToUpload;
     }
-
 }
