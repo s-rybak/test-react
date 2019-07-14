@@ -2,6 +2,7 @@
 
 namespace App\DTO;
 
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\FileBag;
 
 /**
@@ -47,7 +48,7 @@ class ContactDTO
     private $photo;
 
     /**
-     * @var FileBag|null
+     * @var UploadedFile|null
      */
     private $fileToUpload;
 
@@ -142,19 +143,19 @@ class ContactDTO
     }
 
     /**
-     * @param FileBag|null $fileToUpload
+     * @param UploadedFile|null $fileToUpload
      * @return ContactDTO
      */
-    public function setFileToUpload(?FileBag $fileToUpload): ContactDTO
+    public function setFileToUpload(?UploadedFile $fileToUpload): ContactDTO
     {
         $this->fileToUpload = $fileToUpload;
         return $this;
     }
 
     /**
-     * @return FileBag|null
+     * @return UploadedFile|null
      */
-    public function getFileToUpload(): ?FileBag
+    public function getFileToUpload(): ?UploadedFile
     {
         return $this->fileToUpload;
     }

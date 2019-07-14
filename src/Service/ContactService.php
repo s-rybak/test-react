@@ -8,6 +8,7 @@ use App\Repository\BasicRepositoryInterface;
 use App\Repository\BasicRepositoryTrait;
 use App\Repository\ContactRepositoryInterface;
 use App\DTO\ContactDTO;
+use App\Transformer\ContactDTOToContactEntityTransformer;
 
 /**
  * Implements Contact service
@@ -23,10 +24,18 @@ class ContactService implements ContactServiceInterface
      * @var ContactRepositoryInterface
      */
     private $repository;
+    /**
+     * @var FilesServiceInterface
+     */
+    private $filesService;
 
-    public function __construct(ContactRepositoryInterface $repository)
+    public function __construct(
+        ContactRepositoryInterface $repository,
+        FilesServiceInterface $filesService
+    )
     {
         $this->repository = $repository;
+        $this->filesService = $filesService;
     }
 
     /**
@@ -37,7 +46,14 @@ class ContactService implements ContactServiceInterface
      */
     public function create(ContactDTO $entityDTO): Contact
     {
-        // TODO: Implement create() method.
+
+        return $this->repository->save(
+            (new ContactDTOToContactEntityTransformer(
+                $this->filesService->uploadContactPhotoIfItSet($entityDTO)
+            ))
+                ->transform()
+        );
+
     }
 
     /**
@@ -50,4 +66,6 @@ class ContactService implements ContactServiceInterface
     {
         // TODO: Implement update() method.
     }
+
+
 }

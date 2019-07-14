@@ -6,6 +6,7 @@ use App\Api\Response\ResponseBuilder;
 use App\Api\Transformer\ContactResourseTransformer;
 use App\Api\Transformer\EmptyResourseTransformer;
 use App\Service\ContactServiceInterface;
+use App\Transformer\ArrayToContactDTOTransformer;
 use App\Transformer\ContactsCollectionToEntitiesPackDTO;
 use App\Validator\Factory\ValidatorFactoryInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -116,8 +117,18 @@ class ContactsController extends AbstractFOSRestController
 
         if ($req->isValid()) {
 
-            $reqData = $req->getData();
-
+            return $this->view(
+                ResponseBuilder::getInstance(new ContactResourseTransformer())
+                    ->setEntity(
+                        $this->service->create(
+                            (new ArrayToContactDTOTransformer($req->getData()))
+                                ->transform()
+                        )
+                    )
+                    ->getResponse()
+                    ->setMessage("Contact created")
+                    ->setStatus('success'),
+                Response::HTTP_OK);
 
         }
 
