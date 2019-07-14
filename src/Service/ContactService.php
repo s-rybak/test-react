@@ -7,7 +7,7 @@ use App\Entity\Contact;
 use App\Repository\BasicRepositoryInterface;
 use App\Repository\BasicRepositoryTrait;
 use App\Repository\ContactRepositoryInterface;
-use ContactDTO;
+use App\DTO\ContactDTO;
 
 /**
  * Implements Contact service

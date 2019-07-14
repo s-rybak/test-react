@@ -4,7 +4,7 @@
 namespace App\Service;
 
 use App\Repository\BasicRepositoryInterface;
-use RepositoryQueriesDTO;
+use App\DTO\RepositoryQueriesDTO;
 
 /**
  * Describe basic entity service methods

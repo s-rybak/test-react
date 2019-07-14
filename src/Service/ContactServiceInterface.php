@@ -3,8 +3,8 @@
 
 namespace App\Service;
 
+use App\DTO\ContactDTO;
 use App\Entity\Contact;
-use ContactDTO;
 
 /**
  * Describe contact service
