@@ -46,12 +46,12 @@ class FilesService implements FilesServiceInterface
 
         if ($file) {
             $ext = $file->getClientOriginalExtension();
-            $fileName = uniqid() . '.' . $ext;
-            $filePath = date('Y-m-d') . '/';
+            $fileName = uniqid().'.'.$ext;
+            $filePath = date('Y-m-d').'/';
 
-            $file->move($this->uploadDirectory . $filePath, $fileName);
+            $file->move($this->uploadDirectory.$filePath, $fileName);
 
-            $contactDTO->setPhoto($this->dirName . $filePath . $fileName);
+            $contactDTO->setPhoto($this->dirName.$filePath.$fileName);
         }
 
         return $contactDTO;
